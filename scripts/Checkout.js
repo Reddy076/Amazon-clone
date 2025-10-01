@@ -16,7 +16,8 @@ const deliveryDate=today.add(7,'day');
 
 // console.log(deliveryDate.format('dddd, MMMM D'));
 
-
+function renderOrderSummary() { 
+ 
 
 let cartSummaryHTML = '';
 
@@ -151,7 +152,10 @@ cartSummaryHTML+=
         const {productId, deliveryOptionId} = element.dataset;
         updateDeliveryOption(productId, deliveryOptionId);
         
-        // Update the page to show the new delivery date
-        location.reload();
+        renderOrderSummary();
       });
   });
+
+}
+
+renderOrderSummary();
