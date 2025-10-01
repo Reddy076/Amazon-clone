@@ -1,4 +1,4 @@
-import { cart , clearCart} from "../data/cart.js";
+import { cart , clearCart , updateDeliveryOption} from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatMoney } from "./utils/money.js";
 import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
@@ -106,7 +106,9 @@ cartSummaryHTML+=
 
       const isChecked=deliveryOption.id===cartItem.deliveryOptionId;
       html+= `
-      <div class="delivery-option">
+      <div class="delivery-option js-delivery-option"
+      data-product-id="${matchingProduct.id}"
+      data-delivery-option-id="${deliveryOption.id}">
                   <input type="radio"
                     ${isChecked ? 'checked' : ''}
                     class="delivery-option-input"
@@ -140,4 +142,16 @@ cartSummaryHTML+=
       const container=document.querySelector(`.js-cart-item-container-${productId}`);
       container.remove();
     });
+  });
+
+
+  document.querySelectorAll('.js-delivery-option')
+  .forEach((element)=>{
+      element.addEventListener('click',()=>{
+        const {productId, deliveryOptionId} = element.dataset;
+        updateDeliveryOption(productId, deliveryOptionId);
+        
+        // Update the page to show the new delivery date
+        location.reload();
+      });
   });
