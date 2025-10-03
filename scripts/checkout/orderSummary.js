@@ -7,6 +7,7 @@ import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import { deliveryOptions , getDeliveryOptions } from "../../data/deliveryOptions.js";
 
 import { renderPaymentsSummary } from "./paymentsSummary.js";
+import { updateCheckoutHeader } from "./checkoutHeader.js";
 
 
 
@@ -116,6 +117,7 @@ export function renderOrderSummary() {
 
       const container=document.querySelector(`.js-cart-item-container-${productId}`);
       container.remove();
+      updateCheckoutHeader();
       renderPaymentsSummary();
     });
   });
@@ -128,6 +130,7 @@ export function renderOrderSummary() {
         updateDeliveryOption(productId, deliveryOptionId);
         
         renderOrderSummary();
+        updateCheckoutHeader();
         renderPaymentsSummary();
       });
   });
